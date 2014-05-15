@@ -4,6 +4,8 @@
 
 Python script that reads a csv from stdin, drops duplicates based on a column, and outputs to stdout.
 
-## dependencies
+### dependencies
 
-Requires [Pandas](http://pandas.pydata.org/)
+- [Pandas](http://pandas.pydata.org/)
+
+### usage
