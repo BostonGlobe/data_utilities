@@ -1,3 +1,7 @@
+# data_utilities
+
+A (small) collection of data utilities.
+
 ## drop_duplicates
 
 Python script that reads a csv, drops duplicates based on a column, and outputs to stdout. Takes the last duplicate row.
@@ -24,3 +28,7 @@ name,twitter
 john doe,@johndoe
 jane dae,@janedae
 ```
+
+## License
+
+MIT © [Gabriel Florit](http://github.com/gabrielflorit)
