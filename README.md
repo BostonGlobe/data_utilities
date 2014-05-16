@@ -1,6 +1,6 @@
 ## drop_duplicates
 
-Python script that reads a csv from stdin, drops duplicates based on a column, and outputs to stdout.
+Python script that reads a csv, drops duplicates based on a column, and outputs to stdout. Takes the last duplicate row.
 
 #### dependencies
 
@@ -8,10 +8,19 @@ Python script that reads a csv from stdin, drops duplicates based on a column, a
 
 #### usage
 
-*test.csv*
+**test.csv**
 ```csv
-id,name,age
-1,gabriel,1
-2,gabriel,19
-3,joe,10
+name,twitter
+john doe,@jooohndoe
+john doe,@johndoe
+jane dae,@janedae
+```
+
+`cat test.csv | python drop_duplicates.py --column name`
+
+**output**
+```csv
+name,twitter
+john doe,@johndoe
+jane dae,@janedae
 ```
