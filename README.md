@@ -31,4 +31,4 @@ jane dae,@janedae
 
 ## License
 
-MIT © [Gabriel Florit](http://github.com/gabrielflorit)
+MIT © [The Boston Globe](http://github.com/BostonGlobe)
