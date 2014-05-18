@@ -13,7 +13,7 @@ if args.column is None:
 	sys.exit(0)
 
 # read csv from stdin into a dataframe
-df = pd.read_csv(sys.stdin)
+df = pd.read_csv(sys.stdin, low_memory=False)
 
 # create a second dataframe without duplicates. take last duplicate
 df2 = df.drop_duplicates(cols=args.column, take_last=True)
