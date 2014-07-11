@@ -30,7 +30,7 @@ john doe,1419984000
 
 ## drop_duplicates
 
-Python script that reads a csv, drops duplicates based on a column, and outputs to stdout. Takes the last duplicate row.
+Python script that reads a csv, drops duplicates based on a column. Takes the last duplicate row. Outputs to stdout.
 
 #### dependencies
 
