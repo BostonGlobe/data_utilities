@@ -4,6 +4,7 @@ import datetime
 import calendar
 import argparse
 
+# setup argument parsing
 parser = argparse.ArgumentParser(description='Parse date column to unix.')
 parser.add_argument('--column', help='name of date column')
 parser.add_argument('--format', help='format of date values - see https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior')

@@ -3,7 +3,7 @@ import argparse
 import sys
 
 # setup argument parsing
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description='Drops duplicates based on a column. Takes the last duplicate row.')
 parser.add_argument('--column', help='the column to remove duplicates by')	
 args = parser.parse_args()
 
@@ -15,8 +15,7 @@ if args.column is None:
 # read csv from stdin into a dataframe
 df = pd.read_csv(sys.stdin, low_memory=False)
 
-# create a second dataframe without duplicates. take last duplicate
-df2 = df.drop_duplicates(cols=args.column, take_last=True)
+df = df.drop_duplicates(cols=args.column, take_last=True)
 
 # output second dataframe to stdout
-df2.to_csv(sys.stdout, index=False)
+df.to_csv(sys.stdout, index=False)
