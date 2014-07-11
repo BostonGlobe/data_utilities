@@ -2,6 +2,34 @@
 
 A (small) collection of data utilities.
 
+## melt.py
+
+Python script that reads a csv and melts by column. Outputs to stdout.
+
+#### dependencies
+
+- [Pandas](http://pandas.pydata.org/)
+
+#### usage
+
+**test.csv**
+```csv
+fips,town,2013,2014
+1,boston,1,2
+2,cambridge,5,7
+```
+
+`cat test.csv | python melt.py --ids fips town`
+
+**output**
+```csv
+fips,town,variable,value
+1,boston,2013,1
+2,cambridge,2013,5
+1,boston,2014,2
+2,cambridge,2014,7
+```
+
 ## parse_date_to_unix
 
 Python script that reads a csv and parses date to column to unix. Outputs to stdout.
