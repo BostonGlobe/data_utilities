@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Gabriel Florit" />
+
+
+<title>How to tidy a table with multiple column headers</title>
+
+<script src="tidy-table_files/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="tidy-table_files/bootstrap-2.3.2/css/bootstrap.min.css" rel="stylesheet" />
+<link href="tidy-table_files/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="tidy-table_files/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="tidy-table_files/highlight/default.css"
+      type="text/css" />
+<script src="tidy-table_files/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+
+<div id="header">
+<h1 class="title">How to tidy a table with multiple column headers</h1>
+<h4 class="author"><em>Gabriel Florit</em></h4>
+<h4 class="date"><em>September 2, 2014</em></h4>
+</div>
+
+
+<p>We are going to tidy a table with multiple column headers so it’s machine-readable.</p>
+<pre class="r"><code># load required libraries
+library(tidyr)
+library(dplyr)
+
+# read in data
+data &lt;- read.csv(&#39;acute.csv&#39;,strip.white=T,stringsAsFactors=F)
+
+# print first part of data
+knitr::kable(head(data))</code></pre>
+<pre><code>## 
+## 
+## |Hospitals                               | X2011_Surgery.performed.on.wrong.body.part| X2012_Surgery.performed.on.wrong.body.part| X2013_Surgery.performed.on.wrong.body.part| X2011_Surgery.performed.on.wrong.patient| X2012_Surgery.performed.on.wrong.patient|X2013_Surgery.performed.on.wrong.patient |
+## |:---------------------------------------|------------------------------------------:|------------------------------------------:|------------------------------------------:|----------------------------------------:|----------------------------------------:|:----------------------------------------|
+## |Anna Jaques Hospital                    |                                         NA|                                         NA|                                          1|                                       NA|                                       NA|NA                                       |
+## |Athol Memorial Hospital                 |                                         NA|                                         NA|                                         NA|                                       NA|                                       NA|NA                                       |
+## |Baystate Franklin Medical Center        |                                         NA|                                         NA|                                         NA|                                       NA|                                       NA|NA                                       |
+## |Baystate Mary Lane Hospital             |                                         NA|                                         NA|                                         NA|                                       NA|                                       NA|NA                                       |
+## |Baystate Medical Center                 |                                          1|                                          2|                                          3|                                       NA|                                       NA|NA                                       |
+## |Berkshire Med Ctr Inc./Berkshire Campus |                                         NA|                                         NA|                                          1|                                       NA|                                       NA|NA                                       |</code></pre>
+<p>Ugh! We have multiple variables in one column. That’ll make it tough to work with. Let’s tidy things up:</p>
+<pre class="r"><code>tidy_data &lt;- data %&gt;%
+  gather(SRE,occurrence,-Hospitals) %&gt;%
+  separate(SRE, c(&#39;year&#39;, &#39;SRE&#39;),sep=&#39;_&#39;, remove=T) %&gt;%
+  mutate(year = gsub(&#39;X&#39;, &#39;&#39;, year))
+
+knitr::kable(head(tidy_data))</code></pre>
+<pre><code>## 
+## 
+## |Hospitals                               |year |SRE                                  | occurrence|
+## |:---------------------------------------|:----|:------------------------------------|----------:|
+## |Anna Jaques Hospital                    |2011 |Surgery.performed.on.wrong.body.part |         NA|
+## |Athol Memorial Hospital                 |2011 |Surgery.performed.on.wrong.body.part |         NA|
+## |Baystate Franklin Medical Center        |2011 |Surgery.performed.on.wrong.body.part |         NA|
+## |Baystate Mary Lane Hospital             |2011 |Surgery.performed.on.wrong.body.part |         NA|
+## |Baystate Medical Center                 |2011 |Surgery.performed.on.wrong.body.part |          1|
+## |Berkshire Med Ctr Inc./Berkshire Campus |2011 |Surgery.performed.on.wrong.body.part |         NA|</code></pre>
+<p>Much nicer. Read <a href="https://github.com/hadley/tidyr"><a href="https://github.com/hadley/tidyr">https://github.com/hadley/tidyr</a></a> for more details.</p>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
